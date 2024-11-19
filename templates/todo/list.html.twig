@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Todo List{% endblock %}
+
+{% block body %}
+    <h1>Todo List</h1>
+
+    <a href="{{ path('todo_create') }}" class="btn btn-success">Create New Todo</a>
+
+    <ul>
+        {% for todo in todos %}
+            <li>{{ todo.title }} - {{ todo.dueDate|date('Y-m-d H:i') }}</li>
+            <p>{{todo.description}}</p>
+        {% else %}
+            <li>No todos yet!</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('app_logout') }}">Odjavite se</a>
+{% endblock %}
