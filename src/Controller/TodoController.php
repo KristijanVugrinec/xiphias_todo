@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Todo;
 use App\Form\TodoType;
+use App\Repository\TodoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -56,5 +58,18 @@ class TodoController extends AbstractController
         return $this->render('todo/list.html.twig',[
             'todos' => $todos,
         ]);
+    }
+
+    #[Route('/todo/{id}/delete', name: 'todo_delete', methods: ['DELETE'])]
+    public function delete($id,TodoRepository $todoRepository,EntityManagerInterface $entityManager):JsonResponse
+    {
+        $todo = $todoRepository->find($id);
+        if(!$todo){
+            return new JsonResponse(['message' => 'Todo not found'],404);
+        }
+        $entityManager->remove($todo);
+        $entityManager->flush();
+
+        return new JsonResponse(['message' => 'Todo deleted successfully']);
     }
 }
