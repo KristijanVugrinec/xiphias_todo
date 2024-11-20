@@ -24,8 +24,8 @@ class Todo
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dueDate = null;
 
-    // #[ORM\Column(type: Types::BOOLEAN)]
-    // private ?bool $isFinished = null;  // Explicitly define the type as BOOLEAN
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private ?bool $isFinished = false; 
 
 
     #[ORM\ManyToOne(targetEntity:User::class, inversedBy: 'todos')]
@@ -73,19 +73,18 @@ class Todo
         return $this;
     }
 
-    // Getter method for isFinished
-    // public function getIsFinished(): ?bool
-    // {
-    //     return $this->isFinished;
-    // }
+    public function isFinished(): ?bool
+    {
+        return $this->isFinished;
+    }
 
     // // Setter method for isFinished
-    // public function setFinished(bool $isFinished): static
-    // {
-    //     $this->isFinished = $isFinished;
+    public function setIsFinished(bool $isFinished): self
+    {
+        $this->isFinished = $isFinished;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     public function getUser(): ?User
     {

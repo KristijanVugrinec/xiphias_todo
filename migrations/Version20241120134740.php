@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241119174629 extends AbstractMigration
+final class Version20241120134740 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,12 @@ final class Version20241119174629 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE todo DROP is_finished');
+        $this->addSql('ALTER TABLE todo ADD is_finished TINYINT(1) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE todo ADD is_finished TINYINT(1) NOT NULL');
+        $this->addSql('ALTER TABLE todo DROP is_finished');
     }
 }

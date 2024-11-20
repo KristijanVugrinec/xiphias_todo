@@ -72,4 +72,24 @@ class TodoController extends AbstractController
 
         return new JsonResponse(['message' => 'Todo deleted successfully']);
     }
+
+    #[Route('/todo/{id}/toggle-finished',name:'todo_toggle_finished',methods:['POST'])]
+    public function toggleFinished(int $id,TodoRepository $todoRepository,EntityManagerInterface $entityManager,Request $request):JsonResponse
+    {
+        $todo = $todoRepository->find($id);
+        if(!$todo){
+            return new JsonResponse(['succes' => false,'message' => 'Todo not found'],404);
+        }
+
+        $data = json_decode($request->getContent(),true);
+        $newStatus = $data['isFinished'] ?? false;
+
+        $todo->setIsFinished($newStatus);
+        $entityManager->flush();
+
+        return new JsonResponse([
+            'success' => true,
+            'newStatus' => $newStatus,
+        ]);
+    }
 }

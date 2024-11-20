@@ -12,6 +12,7 @@
             <li>{{ todo.title }} - {{ todo.dueDate|date('Y-m-d H:i') }}</li>
             <p>{{todo.description}}</p>
             <button class="delete-todo-btn" data-id="{{todo.id}}">DELETE</button>
+            <button class="is-finished-btn" data-id="{{todo.id}}" data-finished="{{todo.isFinished ? '1' : '0'}}" {% if todo.isFinished %}disabled{% endif %}>FINISHED</button>
         {% else %}
             <li>No todos yet!</li>
         {% endfor %}
@@ -45,6 +46,36 @@
                 .catch(error => {
                     console.error('Error',error)
                     alert('An error occurred while deleting the todo.')
+                })
+            })
+        })
+
+        document.querySelectorAll('.is-finished-btn').forEach(button => {
+            button.addEventListener('click',() => {
+                const todoId = button.getAttribute('data-id');
+                const isFinished = button.getAttribute('data-finished') === '1';
+
+                fetch(`/todo/${todoId}/toggle-finished`,{
+                    method:'POST',
+                    headers:{
+                        'X-Requested-With':'XMLHttpRequest',
+                        'Content-Type':'application/json',
+                    },
+                    body:JSON.stringify({isFinished:!isFinished})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success){
+                        button.setAttribute('data-finished', '1'); // Ažuriraj status
+                        button.disabled = true; // Onemogući dugme
+                        console.log("success")
+                    } else {
+                        aler('An error occured while updating the task status.')
+                    }
+                })
+                .catch(error => {
+                    console.log('Error:',error)
+                    alert('An error occurred while updating the task status.');
                 })
             })
         })

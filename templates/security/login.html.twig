@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in{% endblock %}
 
 {% block body %}
+<div class="login_div">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -31,5 +32,6 @@
 <div>
 <p>Nemate korisnicki racun?</p>
 <a href="{{ path('app_register') }}">Izradite novi</a>
+</div>
 </div>
 {% endblock %}
