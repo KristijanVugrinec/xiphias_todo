@@ -1,0 +1,201 @@
+body {
+    width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items:center;
+   margin: 0;
+   height: 100vh;
+   flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.login_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input {
+    height:30px;
+    border: none;
+    border-bottom: 2px solid rgba(135, 166, 175, 0.89);
+}
+
+input:focus{
+   outline: none;
+}
+
+button {
+    background-color: rgba(135, 166, 175, 0.89);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    width: 100px;
+    height: 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgba(163, 224, 241, 0.89);
+}
+
+
+.is-finished-btn{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: rgba(135, 166, 175, 0.89);
+}
+
+    .is-finished-btn.disabled{
+    background-color: rgb(0, 255, 13);
+    border: none;
+    cursor: not-allowed;
+}
+
+.delete-todo-btn{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: red;
+}
+
+.delete-todo-btn:hover{
+    background-color: rgb(255, 133, 133);
+}
+
+header  {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: rgba(135, 166, 175, 0.89);
+    height: 50px;
+}
+
+header > nav {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 100%;
+}
+
+header > nav > a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+nav a.active{
+    height: 100%;
+    background-color: rgba(163, 224, 241, 0.336);
+}
+
+.todo_list_wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    background-color:rgba(163, 224, 241, 0.336);
+    border-radius: 20px;
+    color: rgb(48, 47, 47);
+    height: 80vh;
+}
+
+.todo_list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 2px solid rgba(74, 103, 110, 0.336);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.todo_list_main{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.date_for_list > p {
+    font-size: 12px;
+    margin: 0;
+}
+
+.finished_todos{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    border-right: 2px solid rgba(74, 103, 110, 0.336) ;
+    overflow-y: auto;
+}
+
+.unfinished_todos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.delete_button {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: red;
+}
+
+.finished_button {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color:rgba(135, 166, 175, 0.89); ;
+}
+
+.legend_for_buttons {
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+}
+
+.legend_for_delete {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+font-size: 12px;
+}
+
+.legend_for_finish {
+    display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+font-size: 12px;
+}

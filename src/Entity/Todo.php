@@ -78,7 +78,6 @@ class Todo
         return $this->isFinished;
     }
 
-    // // Setter method for isFinished
     public function setIsFinished(bool $isFinished): self
     {
         $this->isFinished = $isFinished;

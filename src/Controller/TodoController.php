@@ -17,12 +17,12 @@ class TodoController extends AbstractController
     #[Route('/todo/create', name: 'todo_create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getUser(); // Trenutni ulogovani korisnik
+        $user = $this->getUser(); // Trenutno ulogiran korisnik
         $todo = new Todo();
 
         // Kreiramo formu i prosleđujemo korisnika kao opciju
         $form = $this->createForm(TodoType::class, $todo, [
-            'user' => $user,  // Prosleđujemo korisnika formi
+            'user' => $user,  // Prosljeđujemo korisnika formi
         ]);
 
         $form->handleRequest($request);
@@ -30,11 +30,11 @@ class TodoController extends AbstractController
         // Ako je forma poslata i validna
         if ($form->isSubmitted() && $form->isValid()) {
             // Spremamo Todo u bazu
-            $todo->setUser($user);  // Postavljamo korisnika za Todo entitet
+            $todo->setUser($user);
             $entityManager->persist($todo);
             $entityManager->flush();
 
-            // Redirektujemo na listu Todos
+            // Prosljeđujemo na listu Todos
             return $this->redirectToRoute('todo_list');
         }
 

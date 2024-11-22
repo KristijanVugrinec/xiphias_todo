@@ -4,20 +4,71 @@
 
 {% block body %}
     <h1>Todo List</h1>
-
-    <a href="{{ path('todo_create') }}" class="btn btn-success">Create New Todo</a>
-
-    <ul>
+    {# <a href="{{ path('todo_create') }}" class="btn btn-success">Create New Todo</a> #}
+    <div class="todo_list_wrapper">
+    <div class="finished_todos">
+    <p>Finished!</p>
+    {% set finished = false %}
         {% for todo in todos %}
-            <li>{{ todo.title }} - {{ todo.dueDate|date('Y-m-d H:i') }}</li>
-            <p>{{todo.description}}</p>
-            <button class="delete-todo-btn" data-id="{{todo.id}}">DELETE</button>
-            <button class="is-finished-btn" data-id="{{todo.id}}" data-finished="{{todo.isFinished ? '1' : '0'}}" {% if todo.isFinished %}disabled{% endif %}>FINISHED</button>
-        {% else %}
-            <li>No todos yet!</li>
+            {% if todo.isFinished %}
+                {% set finished = true %}
+            <div class="todo_list" data-id="{{todo.id}}">
+            {# <div>
+            <p>Due by: {{ todo.dueDate|date('Y-m-d H:i') }}</p>
+            </div> #}
+            <div class="todo_list_main">
+            <p>Title: {{ todo.title }}</p>
+            <p>Description: {{todo.description}}</p>
+            <button class="delete-todo-btn" data-id="{{todo.id}}"></button>
+            {# <button class="is-finished-btn {{todo.isFinished ? 'disabled'}}" data-id="{{todo.id}}" data-finished="{{todo.isFinished ? '1' : '0'}}" {% if todo.isFinished %}disabled{% endif %}></button> #}
+            </div>
+            </div>
+            {% endif %}
         {% endfor %}
-    </ul>
-    <a href="{{ path('app_logout') }}">Odjavite se</a>
+        {% if not finished %}
+            <p>No finished todos yet!</p>
+            {% endif %}
+        </div>
+        <div class="unfinished_todos">
+        <p>Active!</p>
+        {% set unfinished = false %}
+            {% for todo in todos %}
+                {% if not todo.isFinished %}
+                {% set unfinished = true %}
+                    <div class="todo_list" data-id="{{todo.id}}">
+            <div class="date_for_list">
+            <p>Due by: {{ todo.dueDate|date('Y-m-d H:i') }}</p>
+            </div>
+            <div class="todo_list_main">
+            <p>Title: {{ todo.title }}</p>
+            <p>Description: {{todo.description}}</p>
+            <button class="delete-todo-btn" data-id="{{todo.id}}"></button>
+            <button class="is-finished-btn {{todo.isFinished ? 'disabled'}}" data-id="{{todo.id}}" data-finished="{{todo.isFinished ? '1' : '0'}}" {% if todo.isFinished %}disabled{% endif %}></button>
+            </div>
+            </div>
+                {% endif %}
+                {% endfor %}
+            {% if not unfinished %}
+            <p>There is no todos to finish!</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="legend_for_buttons">
+        <div class="legend_wrapper">
+            <div class="legend_for_delete">
+                <div class="delete_button">
+                </div>
+                    <p>Delete with this button!</p>
+        </div>
+            </div>
+        <div class="legend_wrapper">
+            <div class="legend_for_finish">
+                <div class="finished_button">
+                </div>
+                <p>Mark as finished!</p>
+            </div>
+        </div>
+    {# <a href="{{ path('app_logout') }}">Odjavite se</a> #}
 
     <script>
     document.addEventListener('DOMContentLoaded',() => {
@@ -66,9 +117,10 @@
                 .then(response => response.json())
                 .then(data => {
                     if(data.success){
-                        button.setAttribute('data-finished', '1'); // Ažuriraj status
-                        button.disabled = true; // Onemogući dugme
-                        console.log("success")
+                        button.setAttribute('data-finished', '1'); 
+                        button.classList.add('disabled')
+                        button.disabled = true;
+                        location.reload()
                     } else {
                         aler('An error occured while updating the task status.')
                     }
